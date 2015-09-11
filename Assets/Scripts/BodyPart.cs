@@ -12,7 +12,8 @@ public class BodyPart : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 	
 	}
 

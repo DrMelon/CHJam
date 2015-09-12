@@ -22,7 +22,7 @@ public class TopScript : MonoBehaviour {
         }
         if (sprrend.sprite.name == "top4")
         {
-            this.transform.localPosition = new Vector3(-0.05f, -1.0f, -0.4f);
+            this.transform.localPosition = new Vector3(-0.05f, -1.18f, -0.4f);
         }
 
     }

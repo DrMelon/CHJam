@@ -11,10 +11,16 @@ public class TextBubble : MonoBehaviour {
     public int currentLetter;
     public int timer;
 
-	// Use this for initialization
-	void Start ()
+
+    string[] openingLines = { "I'm looking for someone who likes long walks by the sea of magma.",
+                              "I want to spend the rest of eternity with someone really cool! But not in the temperature way.",
+                              "I'd like to meet someone who has a burning passion for burning other things!" };
+
+    // Use this for initialization
+    void Start ()
     {
         targetGui.text = "";
+        TargetText = openingLines[Random.Range(0, 3)];
         currentLetter = 0;
         timer = 0;
 	}

@@ -45,11 +45,30 @@ public class SmallFriendScript : MonoBehaviour {
         }
 
         // Pick scale
-        this.transform.localScale.Set(0.33f, 0.33f, 0.33f);
+        //this.transform.localScale.Set(0.33f, 0.33f, 0.33f);
 
         // Set hue shift
+        // Get all pixels, set all pixels (sounds terrible, but is only done once)
+        Texture2D copyTex = new Texture2D(thisFriend.sprite.texture.width, thisFriend.sprite.texture.height, thisFriend.sprite.texture.format, false);
+        Color[] thePixels = thisFriend.sprite.texture.GetPixels(0, 0, copyTex.width, copyTex.height);
+        float shift = Random.Range(0.0f, 1.0f);
+        for (int i = 0; i < thePixels.Length; i++)
+        {
+
+            HSBColor hsb = HSBColor.FromColor(thePixels[i]);
+            hsb.h = shift;
+            thePixels[i] = hsb.ToColor();
+            
+        }
+        copyTex.alphaIsTransparency = thisFriend.sprite.texture.alphaIsTransparency;
+        
+        copyTex.SetPixels(0, 0, copyTex.width, copyTex.height, thePixels);
+        copyTex.Apply();
+
+        thisFriend.sprite = Sprite.Create(copyTex, new Rect(0, 0, thisFriend.sprite.texture.width, thisFriend.sprite.texture.height), new Vector2(0.5f, 0.5f));
 
         
+
     }
 
     void PickNewDir()
@@ -127,11 +146,11 @@ public class SmallFriendScript : MonoBehaviour {
             {
                 if (directionVec.x < 0)
                 {
-                    this.transform.localScale = new Vector3(-0.33f, 0.33f, 0.33f);
+                    this.transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
                 }
                 else
                 {
-                    this.transform.localScale = new Vector3(0.33f, 0.33f, 0.33f);
+                    this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 }
 
                 directionVec.Normalize();

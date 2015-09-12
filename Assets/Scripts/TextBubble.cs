@@ -24,7 +24,7 @@ public class TextBubble : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (timer == 0)
+        if (timer == 0 && currentLetter < TargetText.Length)
         {
             targetGui.text = targetGui.text + TargetText.ToCharArray().GetValue(currentLetter);
             currentLetter += 1;

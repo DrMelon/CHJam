@@ -20,6 +20,10 @@ public class TopScript : MonoBehaviour {
         {
             this.transform.localPosition = new Vector3(-0.05f, -1.3f, -0.4f);
         }
+        if (sprrend.sprite.name == "top4")
+        {
+            this.transform.localPosition = new Vector3(-0.05f, -1.0f, -0.4f);
+        }
 
     }
 

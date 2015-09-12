@@ -24,13 +24,21 @@ public class HairScript : MonoBehaviour {
         {
             this.transform.localPosition = new Vector3(-0.46f, 2.15f, -0.5f);
         }
-        if (sprrend.sprite.name == "hair5")
+        if (sprrend.sprite.name.Contains("hair5"))
         {
             this.transform.localPosition = new Vector3(-0.2f, 1.82f, -0.5f);
+        }
+        if (sprrend.sprite.name.Contains("hair3"))
+        {
+            this.transform.localPosition = new Vector3(-0.22f, 0.74f, -0.5f);
         }
         if (sprrend.sprite.name.Contains("hair4"))
         {
             this.transform.localPosition = new Vector3(-0.03f, 2.21f, -0.5f);
+        }
+        if (sprrend.sprite.name.Contains("hair6"))
+        {
+            this.transform.localPosition = new Vector3(-0.05f, 2.24f, -0.5f);
         }
 
     }

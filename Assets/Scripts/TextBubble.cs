@@ -19,12 +19,16 @@ public class TextBubble : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        targetGui.text = "";
-        TargetText = openingLines[Random.Range(0, 3)];
-        currentLetter = 0;
-        timer = 0;
+        Reset(openingLines[Random.Range(0, 3)]);
 	}
 
+    void Reset(string newtext)
+    {
+        targetGui.text = "";
+        TargetText = newtext;
+        currentLetter = 0;
+        timer = 0;
+    }
 
 	
 	// Update is called once per frame

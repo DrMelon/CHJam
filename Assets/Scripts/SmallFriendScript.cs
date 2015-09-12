@@ -160,5 +160,24 @@ public class SmallFriendScript : MonoBehaviour {
         }
 
 
+        // Click a friend O:!
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Collider2D hitCollider = Physics2D.OverlapPoint(mousePosition);
+
+            Debug.Log("mouse pos " + mousePosition.x + " y " + mousePosition.y + " ");
+
+
+            if (hitCollider)
+            {
+                // Instantiate a New Friend, Facing to the Left.
+                // -- Give New Friend to Slot B in the Matchmaker Script
+                // -- Do Matchmaking GUI!
+                // -- And such!
+                
+            }
+        }
+
     }
 }

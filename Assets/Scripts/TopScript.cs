@@ -18,7 +18,7 @@ public class TopScript : MonoBehaviour {
         // Depending on chosen face, try to shuffle stuff around to fit.
         if (sprrend.sprite.name == "top2")
         {
-            this.transform.localPosition = new Vector3(-0.05f, -1.3f, 0.0f);
+            this.transform.localPosition = new Vector3(-0.05f, -1.3f, -0.4f);
         }
 
     }

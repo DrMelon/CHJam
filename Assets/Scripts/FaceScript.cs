@@ -18,7 +18,7 @@ public class FaceScript : MonoBehaviour {
         // Depending on chosen face, try to shuffle stuff around to fit.
         if (sprrend.sprite.name == "face6")
         {
-            this.transform.localPosition = new Vector3(-0.5f, 1.3f, 0.0f);
+            this.transform.localPosition = new Vector3(-0.5f, 1.3f, -0.4f);
         }
 
 	}

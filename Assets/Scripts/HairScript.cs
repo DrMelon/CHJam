@@ -40,6 +40,10 @@ public class HairScript : MonoBehaviour {
         {
             this.transform.localPosition = new Vector3(-0.05f, 2.24f, -0.5f);
         }
+        if (sprrend.sprite.name.Contains("hair7"))
+        {
+            this.transform.localPosition = new Vector3(-0.01f, 1.894f, -0.5f);
+        }
 
     }
 

@@ -91,6 +91,25 @@ public class HairBackScript : MonoBehaviour {
                 this.transform.localPosition = new Vector3(0.74f, 1.9f, 0.28f);
             }
 
+            if (parentHair.sprite.name == "hair7-1")
+            {
+                outsprite = hairList[12];
+                this.GetComponent<SpriteRenderer>().sprite = outsprite;
+                this.transform.localPosition = new Vector3(-1.13f, 1.3f, 0.28f);
+            }
+            if (parentHair.sprite.name == "hair7-2")
+            {
+                outsprite = hairList[13];
+                this.GetComponent<SpriteRenderer>().sprite = outsprite;
+                this.transform.localPosition = new Vector3(-1.13f, 1.3f, 0.28f);
+            }
+            if (parentHair.sprite.name == "hair7-3")
+            {
+                outsprite = hairList[14];
+                this.GetComponent<SpriteRenderer>().sprite = outsprite;
+                this.transform.localPosition = new Vector3(-1.13f, 1.3f, 0.28f);
+            }
+
 
 
         }

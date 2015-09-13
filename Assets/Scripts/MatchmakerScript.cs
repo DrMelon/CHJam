@@ -6,6 +6,7 @@ public class MatchmakerScript : MonoBehaviour {
     public GameObject templateFriend;
     public GameObject templateBubble;
     public GameObject dimmer;
+    public GameObject backbutton;
 
     public GameObject PersonA;
     // Person A Pos at Scale 1.1441: (scale x negative)
@@ -17,7 +18,11 @@ public class MatchmakerScript : MonoBehaviour {
     public GameObject PersonB;
     public GameObject BubbleB;
 
+    public float CurrentMatchPercent;
+
     public bool CurrentlyMatchmaking = false;
+
+    public int MatchesLeft = 4;
 
     // Use this for initialization
     void Start ()
@@ -53,7 +58,34 @@ public class MatchmakerScript : MonoBehaviour {
 
 
         // DEBUG: show suitability
-        print(DetermineSuitablityPercentage());
+        CurrentMatchPercent = DetermineSuitablityPercentage();
+        print(CurrentMatchPercent);
+    }
+
+    public void StopMatchmaking()
+    {
+        CurrentlyMatchmaking = false;
+        MatchesLeft--;
+        if (MatchesLeft <= 0)
+        {
+            DoGameOver();
+        }
+
+    }
+
+    public void DoGameOver()
+    {
+        // matched with nobody, display oh no!!
+    }
+
+    public void DoWin()
+    {
+        // got a match! test their quality, display epilogue.
+    }
+
+    public void VerifyMatchmaking()
+    {
+        // Brand approved or do failure
 
     }
 
@@ -130,6 +162,12 @@ public class MatchmakerScript : MonoBehaviour {
         }
 
         // Matching cosmetic items boost suitability a little less.
+        if(PersonA.GetComponentInChildren<HairScript>().gameObject.GetComponent<SpriteRenderer>().sprite.name == PersonB.GetComponentInChildren<HairScript>().gameObject.GetComponent<SpriteRenderer>().sprite.name)
+        {
+            SuitabilityAPercentage += 5.0f;
+            SuitabilityBPercentage += 5.0f;
+            print("HAIR MATCH");
+        }
 
         // Find average suitability
         MeanSuitability = (SuitabilityAPercentage + SuitabilityBPercentage) / 2.0f;
@@ -155,10 +193,18 @@ public class MatchmakerScript : MonoBehaviour {
                 }
 
             }
+            if(backbutton)
+            {
+                backbutton.GetComponent<Renderer>().material.color = Color.white;
+            }
 
         }
         else
         {
+            if (PersonB && PersonB.transform.position.y > -9.5f)
+            {
+                PersonB.transform.position = PersonB.transform.position - new Vector3(0.0f, 0.1f, 0.0f);
+            }
             if (dimmer)
             {
                 if (dimmer.GetComponent<Renderer>().material.color.a > (0.0f))
@@ -166,6 +212,10 @@ public class MatchmakerScript : MonoBehaviour {
                     dimmer.GetComponent<Renderer>().material.color = dimmer.GetComponent<Renderer>().material.color - new Color(0, 0, 0, 0.02f);
                 }
 
+            }
+            if (backbutton)
+            {
+                backbutton.GetComponent<Renderer>().material.color = Color.clear;
             }
         }
 

@@ -10,7 +10,10 @@ public class TextBubble : MonoBehaviour {
     public Text targetGui;
     public int currentLetter;
     public int timer;
-
+    public AudioClip bipsound;
+    AudioSource myAudio;
+    public bool pitchshifter;
+    float voicePitch;
 
     string[] openingLines = { "I'm looking for someone who likes long walks by the sea of magma.",
                               "I want to spend the rest of eternity with someone really cool! But not in the temperature way.",
@@ -19,7 +22,9 @@ public class TextBubble : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        myAudio = gameObject.AddComponent<AudioSource>();
         Reset(openingLines[Random.Range(0, 3)]);
+        
 	}
 
     void Reset(string newtext)
@@ -28,6 +33,8 @@ public class TextBubble : MonoBehaviour {
         TargetText = newtext;
         currentLetter = 0;
         timer = 0;
+        // new voice
+        voicePitch = Random.Range(0.8f, 1.2f);
     }
 
 	
@@ -39,6 +46,20 @@ public class TextBubble : MonoBehaviour {
             targetGui.text = targetGui.text + TargetText.ToCharArray().GetValue(currentLetter);
             currentLetter += 1;
             timer = framesBetweenLetters;
+
+            if (myAudio != null)
+            {
+                if (pitchshifter)
+                {
+                    myAudio.pitch = Random.Range(0.9f, 1.1f);
+                }
+                else
+                {
+                    myAudio.pitch = voicePitch;
+                }
+
+                myAudio.PlayOneShot(bipsound);
+            }
         }
         timer--;
         

@@ -20,6 +20,7 @@ public class SmallFriendScript : MonoBehaviour {
     float timeWaiting;
     bool isWaiting = true;
     Vector3 nextPos;
+    public bool isSliding = false;
     
 
     // Use this for initialization
@@ -117,46 +118,54 @@ public class SmallFriendScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (isWaiting && timeWaiting <= 0)
+        if (!isSliding)
         {
-            timeLeftMoving = Random.Range(1.0f, 3.5f);
-
-
-            PickNewDir();
-
-
-
-
-
-            isWaiting = false;
-        }
-        if (timeLeftMoving <= 0 && isWaiting == false)
-        {
-            timeWaiting = Random.Range(1.0f, 3.5f);
-            isWaiting = true;
-        }
-
-        timeWaiting -= 1.0f / 60.0f;
-        timeLeftMoving -= 1.0f / 60.0f;
-
-        if (isWaiting == false)
-        {
-            Vector3 directionVec = nextPos - this.transform.position;
-            if (directionVec.magnitude > 0.05f)
+            if (isWaiting && timeWaiting <= 0)
             {
-                if (directionVec.x < 0)
-                {
-                    this.transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-                }
-                else
-                {
-                    this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                }
+                timeLeftMoving = Random.Range(1.0f, 3.5f);
 
-                directionVec.Normalize();
-                // move in direction
-                this.transform.position = this.transform.position + (directionVec * (0.03f * timeLeftMoving));
+
+                PickNewDir();
+
+
+
+
+
+                isWaiting = false;
             }
+            if (timeLeftMoving <= 0 && isWaiting == false)
+            {
+                timeWaiting = Random.Range(1.0f, 3.5f);
+                isWaiting = true;
+            }
+
+            timeWaiting -= 1.0f / 60.0f;
+            timeLeftMoving -= 1.0f / 60.0f;
+
+            if (isWaiting == false)
+            {
+                Vector3 directionVec = nextPos - this.transform.position;
+                if (directionVec.magnitude > 0.05f)
+                {
+                    if (directionVec.x < 0)
+                    {
+                        this.transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+                    }
+                    else
+                    {
+                        this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    }
+
+                    directionVec.Normalize();
+                    // move in direction
+                    this.transform.position = this.transform.position + (directionVec * (0.03f * timeLeftMoving));
+                }
+            }
+        }
+        else
+        {
+            // SLIDE AWAYYYYYYY
+            this.transform.position = this.transform.position + new Vector3(0.2f, 0.0f, 0.0f);
         }
 
 
@@ -166,16 +175,23 @@ public class SmallFriendScript : MonoBehaviour {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Collider2D hitCollider = Physics2D.OverlapPoint(mousePosition);
 
-            Debug.Log("mouse pos " + mousePosition.x + " y " + mousePosition.y + " ");
-
-
-            if (hitCollider)
+            if (hitCollider && !Global.theMatchmaker.CurrentlyMatchmaking)
             {
-                // Instantiate a New Friend, Facing to the Left.
-                // -- Give New Friend to Slot B in the Matchmaker Script
-                // -- Do Matchmaking GUI!
-                // -- And such!
-                
+                if(hitCollider.GetComponent<Collider2D>() == this.GetComponent<Collider2D>())
+                {
+                    // Instantiate a New Friend, Facing to the Left.
+                    // -- Give New Friend to Slot B in the Matchmaker Script
+                    // -- Do Matchmaking GUI!
+                    // -- And such!
+
+                    // Step 1, sliiiide offscreen!
+                    this.isSliding = true;
+
+                    // Step 2, tell matchmaker what's happened.
+                    Global.theMatchmaker.BeginMatchmaking();
+
+                }
+
             }
         }
 

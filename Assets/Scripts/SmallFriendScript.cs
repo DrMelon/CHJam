@@ -61,7 +61,7 @@ public class SmallFriendScript : MonoBehaviour {
             thePixels[i] = hsb.ToColor();
             
         }
-        copyTex.alphaIsTransparency = thisFriend.sprite.texture.alphaIsTransparency;
+        //copyTex.alphaIsTransparency = thisFriend.sprite.texture.alphaIsTransparency;
         
         copyTex.SetPixels(0, 0, copyTex.width, copyTex.height, thePixels);
         copyTex.Apply();

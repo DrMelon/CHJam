@@ -9,6 +9,8 @@ public class MatchmakerScript : MonoBehaviour {
     public GameObject dimmer2;
     public GameObject backbutton;
     public GameObject matchbutton;
+    public GameObject brand;
+    public GameObject approvedsticker;
 
     public GameObject PersonA;
     // Person A Pos at Scale 1.1441: (scale x negative)
@@ -24,8 +26,13 @@ public class MatchmakerScript : MonoBehaviour {
 
     public bool CurrentlyMatchmaking = false;
     public bool Verifying = false;
+    public bool doneeeee;
+    int donemuch;
 
     public int MatchesLeft = 4;
+
+    bool branding = false;
+    bool donebrand = false;
 
     // Use this for initialization
     void Start ()
@@ -79,17 +86,22 @@ public class MatchmakerScript : MonoBehaviour {
     public void DoGameOver()
     {
         // matched with nobody, display oh no!!
+        DoWin();
     }
 
     public void DoWin()
     {
         // got a match! test their quality, display epilogue.
+
+            Application.LoadLevel(0);
+       
     }
 
     public void VerifyMatchmaking()
     {
         // Brand approved 
         Verifying = true;
+      
     }
 
     public float DetermineSuitablityPercentage()
@@ -208,7 +220,7 @@ public class MatchmakerScript : MonoBehaviour {
         }
         else
         {
-            if (PersonB && PersonB.transform.position.y > -9.5f)
+            if (PersonB && PersonB.transform.position.y > -19.5f)
             {
                 PersonB.transform.position = PersonB.transform.position - new Vector3(0.0f, 0.1f, 0.0f);
             }
@@ -233,18 +245,53 @@ public class MatchmakerScript : MonoBehaviour {
 
         if(Verifying)
         {
+            
             if (dimmer2)
             {
                 if (dimmer2.GetComponent<Renderer>().material.color.a < (1.0f))
                 {
                     dimmer2.GetComponent<Renderer>().material.color = dimmer2.GetComponent<Renderer>().material.color + new Color(0, 0, 0, 0.02f);
                 }
-
+                else
+                {
+                    if (!donebrand)
+                    {
+                        branding = true;
+                        donebrand = true;
+                    }
+                    else
+                    {
+                        approvedsticker.GetComponent<SpriteRenderer>().color = Color.white;
+                    }
+                    
+                }
             }
             // remove buttons
             matchbutton.GetComponent<Renderer>().material.color = Color.clear;
             backbutton.GetComponent<Renderer>().material.color = Color.clear;
             // show brand then stamp
+            if(brand)
+            {
+                if(!branding)
+                {
+                    if (brand.transform.localPosition.z > -15.54)
+                    {
+                        brand.transform.localPosition = brand.transform.localPosition - new Vector3(0.0f, 0.0f, 1.0f);
+                    }
+                }
+                else
+                {
+                    if (brand.transform.localPosition.z < 0)
+                    {
+                        brand.transform.localPosition = brand.transform.localPosition + new Vector3(0.0f, 0.0f, 0.9f);
+                    }
+                    else
+                    {
+                        branding = false;
+                    }
+                }
+
+            }
         }
         else
         {
@@ -256,6 +303,15 @@ public class MatchmakerScript : MonoBehaviour {
                 }
 
             }
+        }
+
+        if(donebrand)
+        {
+            donemuch++;
+        }
+        if(donemuch >= 100)
+        {
+            DoWin();
         }
 
 	}

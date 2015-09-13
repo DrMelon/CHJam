@@ -6,7 +6,9 @@ public class MatchmakerScript : MonoBehaviour {
     public GameObject templateFriend;
     public GameObject templateBubble;
     public GameObject dimmer;
+    public GameObject dimmer2;
     public GameObject backbutton;
+    public GameObject matchbutton;
 
     public GameObject PersonA;
     // Person A Pos at Scale 1.1441: (scale x negative)
@@ -21,6 +23,7 @@ public class MatchmakerScript : MonoBehaviour {
     public float CurrentMatchPercent;
 
     public bool CurrentlyMatchmaking = false;
+    public bool Verifying = false;
 
     public int MatchesLeft = 4;
 
@@ -85,8 +88,8 @@ public class MatchmakerScript : MonoBehaviour {
 
     public void VerifyMatchmaking()
     {
-        // Brand approved or do failure
-
+        // Brand approved 
+        Verifying = true;
     }
 
     public float DetermineSuitablityPercentage()
@@ -197,6 +200,10 @@ public class MatchmakerScript : MonoBehaviour {
             {
                 backbutton.GetComponent<Renderer>().material.color = Color.white;
             }
+            if (matchbutton)
+            {
+                matchbutton.GetComponent<Renderer>().material.color = Color.white;
+            }
 
         }
         else
@@ -216,6 +223,38 @@ public class MatchmakerScript : MonoBehaviour {
             if (backbutton)
             {
                 backbutton.GetComponent<Renderer>().material.color = Color.clear;
+            }
+            if (matchbutton)
+            {
+                matchbutton.GetComponent<Renderer>().material.color = Color.clear;
+            }
+        }
+
+
+        if(Verifying)
+        {
+            if (dimmer2)
+            {
+                if (dimmer2.GetComponent<Renderer>().material.color.a < (1.0f))
+                {
+                    dimmer2.GetComponent<Renderer>().material.color = dimmer2.GetComponent<Renderer>().material.color + new Color(0, 0, 0, 0.02f);
+                }
+
+            }
+            // remove buttons
+            matchbutton.GetComponent<Renderer>().material.color = Color.clear;
+            backbutton.GetComponent<Renderer>().material.color = Color.clear;
+            // show brand then stamp
+        }
+        else
+        {
+            if (dimmer2)
+            {
+                if (dimmer2.GetComponent<Renderer>().material.color.a > (0.0f))
+                {
+                    dimmer2.GetComponent<Renderer>().material.color = dimmer2.GetComponent<Renderer>().material.color - new Color(0, 0, 0, 0.02f);
+                }
+
             }
         }
 

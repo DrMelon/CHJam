@@ -55,7 +55,7 @@ public class TitleScript : MonoBehaviour {
         {
             if (dimmer)
             {
-                if (dimmer.GetComponent<Renderer>().material.color.a < (256.0f))
+                if (dimmer.GetComponent<Renderer>().material.color.a < 1.0f)
                 {
                     dimmer.GetComponent<Renderer>().material.color = dimmer.GetComponent<Renderer>().material.color + new Color(0, 0, 0, 0.02f);
                 }
